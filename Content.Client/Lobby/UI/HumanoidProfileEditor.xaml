@@ -48,6 +48,7 @@
             <!-- tabContainer -->
             <TabContainer Name="TabContainer" VerticalExpand="True">
                 <BoxContainer Orientation="Vertical">
+                    <Label Name="AppearanceBanMessage" Text="{Loc 'humanoid-profile-editor-appearance-banned'}" Visible="False"/>
                     <ScrollContainer VerticalExpand="True">
                         <!-- appearanceList -->
                         <BoxContainer Orientation="Vertical">

@@ -113,7 +113,8 @@ namespace Content.Client.Lobby.UI
             IPrototypeManager prototypeManager,
             IResourceManager resManager,
             JobRequirementsManager requirements,
-            MarkingManager markings)
+            MarkingManager markings,
+            bool banned)
         {
             RobustXamlLoader.Load(this);
             _sawmill = logManager.GetSawmill("profile.editor");
@@ -451,6 +452,9 @@ namespace Content.Client.Lobby.UI
             };
 
             SpeciesInfoButton.OnPressed += OnSpeciesInfoButtonPressed;
+
+            if (banned)
+                AppearanceBanMessage.Visible = true;
 
             UpdateSpeciesGuidebookIcon();
             IsDirty = false;

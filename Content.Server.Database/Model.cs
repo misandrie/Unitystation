@@ -1112,6 +1112,43 @@ namespace Content.Server.Database
         public DateTime UnbanTime { get; set; }
     }
 
+    #region Goobstation - Appearance Bans
+
+    [Table("server_appearance_ban"), Index(nameof(PlayerUserId))]
+    public sealed class ServerAppearanceBan : IBanCommon<ServerAppearanceUnban>
+    {
+        public int Id { get; set; }
+        public int? RoundId { get; set; }
+        public Guid? PlayerUserId { get; set; }
+        public NpgsqlInet? Address { get; set; } = null;
+        public TypedHwid? HWId { get; set; } = null;
+
+        public DateTime BanTime { get; set; }
+
+        public DateTime? ExpirationTime { get; set; }
+
+        public string Reason { get; set; } = null!;
+        public NoteSeverity Severity { get; set; } = NoteSeverity.None;
+        public Guid? BanningAdmin { get; set; }
+
+        public ServerAppearanceUnban? Unban { get; set; }
+    }
+
+    [Table("server_appearance_unban")]
+    public sealed class ServerAppearanceUnban : IUnbanCommon
+    {
+        [Column("appearance_unban_id")] public int Id { get; set; }
+
+        public int BanId { get; set; }
+        public ServerAppearanceBan Ban { get; set; } = null!;
+
+        public Guid? UnbanningAdmin { get; set; }
+
+        public DateTime UnbanTime { get; set; }
+    }
+
+    #endregion
+
     [Table("play_time")]
     public sealed class PlayTime
     {

@@ -543,6 +543,15 @@ namespace Content.Server.Database
         }
         #endregion
 
+        #region Goobstation - Appearance bans
+
+        public abstract Task<ServerAppearanceBanDef?> GetServerAppearanceBanAsync(int id);
+        public abstract Task<ServerAppearanceBanDef> GetServerAppearanceBanAsync(NetUserId id);
+        public abstract Task<ServerAppearanceBanDef> AddServerAppearanceBanAsync(ServerAppearanceBanDef serverRoleBan);
+        public abstract Task AddServerAppearanceUnbanAsync(ServerAppearanceBanDef serverRoleUnban);
+
+        #endregion
+
         #region Playtime
         public async Task<List<PlayTime>> GetPlayTimes(Guid player, CancellationToken cancel)
         {

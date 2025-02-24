@@ -163,6 +163,16 @@ namespace Content.Server.Database
             DateTimeOffset editedAt);
         #endregion
 
+        #region Goobstation - Appearance Bans
+
+        Task<ServerAppearanceBanDef?> GetServerAppearanceBanAsync(int id);
+        Task<ServerAppearanceBanDef> GetServerAppearanceBanAsync(NetUserId userId);
+
+        Task<ServerAppearanceBanDef> AddServerAppearanceBanAsync(ServerAppearanceBanDef serverBan);
+        Task AddServerAppearanceUnbanAsync(ServerAppearanceBanDef serverBan);
+
+        #endregion
+
         #region Playtime
 
         /// <summary>
@@ -623,6 +633,34 @@ namespace Content.Server.Database
             DbWriteOpsMetric.Inc();
             return RunDbCommand(() => _db.EditServerRoleBan(id, reason, severity, expiration, editedBy, editedAt));
         }
+        #endregion
+
+        #region Goobstation - Appearance bans
+
+        public Task<ServerAppearanceBanDef?> GetServerAppearanceBanAsync(int id)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetServerAppearanceBanAsync(id));
+        }
+
+        public Task<ServerAppearanceBanDef> GetServerAppearanceBanAsync(NetUserId userId)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetServerAppearanceBanAsync(userId));
+        }
+
+        public Task<ServerAppearanceBanDef> AddServerAppearanceBanAsync(ServerAppearanceBanDef serverRoleBan)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.AddServerAppearanceBanAsync(serverRoleBan));
+        }
+
+        public Task AddServerAppearanceUnbanAsync(ServerAppearanceBanDef serverRoleUnban)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.AddServerAppearanceUnbanAsync(serverRoleUnban));
+        }
+
         #endregion
 
         #region Playtime

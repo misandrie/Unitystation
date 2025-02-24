@@ -11,6 +11,7 @@ using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid.Prototypes;
+using Content.Shared.Players;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Roles;
@@ -22,6 +23,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
+using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -39,6 +41,7 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
     [Dependency] private readonly IStateManager _stateManager = default!;
     [Dependency] private readonly JobRequirementsManager _requirements = default!;
     [Dependency] private readonly MarkingManager _markings = default!;
+    [Dependency] private readonly INetManager _netMan = default!;
     [UISystemDependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
     [UISystemDependency] private readonly ClientInventorySystem _inventory = default!;
     [UISystemDependency] private readonly StationSpawningSystem _spawn = default!;
@@ -61,6 +64,8 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
 
     private int? EditedSlot => _profileEditor?.CharacterSlot;
 
+    private bool AppearanceBanned = false;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -76,6 +81,8 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
         _configurationManager.OnValueChanged(CCVars.GameRoleTimers, _ => RefreshProfileEditor());
 
         _configurationManager.OnValueChanged(CCVars.GameRoleWhitelist, _ => RefreshProfileEditor());
+
+        _netMan.RegisterNetMessage<MsgAppearanceBan>(OnMsgAppearanceBan);
     }
 
     private LobbyCharacterPreviewPanel? GetLobbyPreview()
@@ -275,7 +282,8 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
             _prototypeManager,
             _resourceCache,
             _requirements,
-            _markings);
+            _markings,
+            AppearanceBanned);
 
         _profileEditor.OnOpenGuidebook += _guide.OpenHelp;
 
@@ -495,6 +503,11 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
         }
 
         return dummyEnt;
+    }
+
+    private void OnMsgAppearanceBan(MsgAppearanceBan message)
+    {
+        AppearanceBanned = message.Banned;
     }
 
     #endregion
