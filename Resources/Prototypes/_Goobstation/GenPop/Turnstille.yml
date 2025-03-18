@@ -1,0 +1,69 @@
+﻿- type: entity
+  id: BaseTurnstile
+  abstract: true
+  parent: BaseStructure
+  name: turnstile
+  description: Allows movement one direction.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Structures/Doors/turnstile.rsi
+    snapCardinals: true
+    layers:
+    - state: turnstile
+      map: [ "turnstile" ]
+    - state: deny
+      visible: false
+    - state: operate
+      visible: false
+  - type: AnimationPlayer
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.1,0.5,0.1"
+        density: 100
+        mask:
+        - FullTileMask
+        layer:
+        - GlassAirlockLayer
+        hard: true
+  - type: Appearance
+  #- type: GenericVisualizer
+  #  visuals:
+  #    enum.TurnstileVisuals.State:
+  #      turnstile:
+  #        Base: { state: turnstile }
+  #        Deny: { state: deny }
+  #        Allow: { state: operate }
+
+- type: entity
+  id: OneWayTurnstileSouth
+  suffix: South
+  parent: BaseTurnstile
+
+- type: entity
+  id: OneWayTurnstileNorth
+  suffix: North
+  parent: BaseTurnstile
+  components:
+  - type: OneWay
+    PreventEntryDirection: North
+
+
+- type: entity
+  id: OneWayTurnstileEast
+  suffix: East
+  parent: BaseTurnstile
+  components:
+  - type: OneWay
+    PreventEntryDirection: East
+
+- type: entity
+  id: OneWayTurnstileWest
+  suffix: West
+  parent: BaseTurnstile
+  components:
+  - type: OneWay
+    PreventEntryDirection: West
+
