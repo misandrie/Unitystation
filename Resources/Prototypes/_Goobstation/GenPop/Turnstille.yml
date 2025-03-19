@@ -41,6 +41,9 @@
   id: OneWayTurnstileSouth
   suffix: South
   parent: BaseTurnstile
+  components:
+    - type: OneWay
+      EntryDirection: South
 
 - type: entity
   id: OneWayTurnstileNorth
@@ -48,7 +51,7 @@
   parent: BaseTurnstile
   components:
   - type: OneWay
-    PreventEntryDirection: North
+    EntryDirection: North
 
 
 - type: entity
@@ -57,7 +60,7 @@
   parent: BaseTurnstile
   components:
   - type: OneWay
-    PreventEntryDirection: East
+    EntryDirection: East
 
 - type: entity
   id: OneWayTurnstileWest
@@ -65,5 +68,5 @@
   parent: BaseTurnstile
   components:
   - type: OneWay
-    PreventEntryDirection: West
+    EntryDirection: West
 

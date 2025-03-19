@@ -14,5 +14,5 @@ public sealed partial class OneWayComponent : Component
     /// Note that this only uses cardinal directions.
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public Direction EntryDirection = Direction.South;
+    public Direction EntryDirection;
 }
