@@ -48,13 +48,13 @@
           True: { visible: true }
           False: { visible: false }
   - type: ActivatableUI
-    key: enum.TapeRecorderUIKey.Key
+    key: enum.BrowserUIKey.Key
     inHandsOnly: true
     requireActiveHand: false
   - type: UserInterface
     interfaces:
-      enum.TapeRecorderUIKey.Key:
-        type: TapeRecorderBoundUserInterface
+      enum.BrowserUIKey.Key:
+        type: BrowserWindowBoundUserInterface
 
 - type: entity
   parent: TapeRecorder
