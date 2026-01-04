@@ -773,8 +773,8 @@ public sealed partial class ChangelingSystem
         if (TryComp<EnsnareableComponent>(uid, out var ensnareable) && ensnareable.Container.ContainedEntities.Count > 0)
         {
             var bola = ensnareable.Container.ContainedEntities[0];
-            // Yes this is dumb, but trust me this is the best way to do this. Bola code is fucking awful.
-            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, 0, new EnsnareableDoAfterEvent(), uid, uid, bola));
+            if (TryComp<EnsnaringComponent>(bola, out var ensnaring))
+                _ensnare.ForceFree(bola, ensnaring);
             QueueDel(bola);
         }
 

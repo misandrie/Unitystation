@@ -129,6 +129,7 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
     [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly SharedEnsnareableSystem _ensnare = default!;
 
 
     public override void Initialize()
@@ -205,8 +206,8 @@ public sealed class SubdermalImplantSystem : SharedSubdermalImplantSystem
         if (TryComp<EnsnareableComponent>(user, out var ensnareable) && ensnareable.Container.ContainedEntities.Count > 0)
         {
             var bola = ensnareable.Container.ContainedEntities[0];
-            // Yes this is dumb, but trust me this is the best way to do this. Bola code is fucking awful.
-            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, 0, new EnsnareableDoAfterEvent(), user, user, bola));
+            if (TryComp<EnsnaringComponent>(bola, out var ensnaring))
+                _ensnare.ForceFree(bola, ensnaring);
             _transform.DropNextTo(bola, user);
             args.Handled = true;
         }
