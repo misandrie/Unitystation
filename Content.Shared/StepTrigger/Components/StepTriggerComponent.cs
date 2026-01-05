@@ -97,9 +97,10 @@ public sealed partial class StepTriggerActiveComponent : Component
 /// Goobstation - Fix
 /// <summary>
 /// This component is used to track entities for cleanup.
+/// TODO: kill
 /// </summary>
 [RegisterComponent]
 public sealed partial class StepTriggerCleanupComponent : Component
 {
-    public EntityUid StepTrigger;
+    public HashSet<EntityUid> StepTriggers = new();
 }
