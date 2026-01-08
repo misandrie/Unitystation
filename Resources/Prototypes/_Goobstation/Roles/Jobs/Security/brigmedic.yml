@@ -18,7 +18,7 @@
   startingGear: BrigmedicGear
   icon: "JobIconBrigmedic"
   supervisors: job-supervisors-hos
-  canBeAntag: false
+  canBeAntag: true
   guides:
   - MedicalDoctor
   - Brigmedic SOP
@@ -32,16 +32,6 @@
   - Service
   - External
   - Cryogenics
-  special:
-  - !type:AddImplantSpecial
-    implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: SecurityStaff
-  - !type:AddComponentSpecial
-    components:
-    - type: SurgerySpeedModifier
-      speedModifier: 1.25 # Same as Paramedic
 
 - type: chameleonOutfit
   id: BrigmedicChameleonOutfit
